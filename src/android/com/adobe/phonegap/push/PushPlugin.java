@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.iid.InstanceID;
-import com.rosterbot.app.android.R;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -75,7 +74,7 @@ public class PushPlugin extends CordovaPlugin implements PushConstants
 
                         Log.v(LOG_TAG, "execute: jo=" + jo.toString());
 
-                        senderID = getApplicationContext().getResources().getString(R.string.google_app_id);
+                        senderID = getStringResourceByName(GCM_DEFAULT_SENDER_ID);
 
                         Log.v(LOG_TAG, "execute: senderID=" + senderID);
 
@@ -320,7 +319,7 @@ public class PushPlugin extends CordovaPlugin implements PushConstants
 
                     Log.v(LOG_TAG, "execute: data=" + data.toString());
                     SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(COM_ADOBE_PHONEGAP_PUSH, Context.MODE_PRIVATE);
-                    String            senderID   = getApplicationContext().getResources().getString(R.string.google_app_id);
+                    String senderID = getStringResourceByName(GCM_DEFAULT_SENDER_ID);
 
                     try
                     {
@@ -656,4 +655,14 @@ public class PushPlugin extends CordovaPlugin implements PushConstants
     {
         registration_id = token;
     }
+
+
+	private String getStringResourceByName(String aString) {
+		Activity activity = cordova.getActivity();
+		String packageName = activity.getPackageName();
+		int resId = activity.getResources().getIdentifier(aString, "string", packageName);
+		return activity.getString(resId);
+	}
+
+
 }
