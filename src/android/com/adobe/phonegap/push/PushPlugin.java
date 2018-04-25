@@ -75,7 +75,7 @@ public class PushPlugin extends CordovaPlugin implements PushConstants
 
                         Log.v(LOG_TAG, "execute: jo=" + jo.toString());
 
-                        senderID = getStringResourceByName("gcm_defaultSenderId");
+                        senderID = preferences.getString("google_app_id", "");
 
                         Log.v(LOG_TAG, "execute: senderID=" + senderID);
 
@@ -320,7 +320,7 @@ public class PushPlugin extends CordovaPlugin implements PushConstants
 
                     Log.v(LOG_TAG, "execute: data=" + data.toString());
                     SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(COM_ADOBE_PHONEGAP_PUSH, Context.MODE_PRIVATE);
-                    String senderID = getStringResourceByName("gcm_defaultSenderId");
+                    String senderID = preferences.getString("google_app_id", "");
 
                     try
                     {
